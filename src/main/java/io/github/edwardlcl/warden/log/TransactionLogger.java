@@ -83,7 +83,8 @@ public class TransactionLogger {
         }
     }
 
-    static String toJsonLine(String event, String player, String item, int qty, Location location) {
+    public static String toJsonLine(
+            String event, String player, String item, int qty, Location location) {
         StringBuilder sb = new StringBuilder(128);
         sb.append('{');
         sb.append("\"ts\":").append(System.currentTimeMillis()).append(',');
@@ -108,7 +109,7 @@ public class TransactionLogger {
                 location.getBlockZ());
     }
 
-    static String escape(String value) {
+    public static String escape(String value) {
         if (value == null) {
             return "";
         }
