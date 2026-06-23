@@ -1,0 +1,15 @@
+name: Warden
+version: ${project.version}
+main: io.github.edwardlcl.warden.WardenPlugin
+api-version: "1.20"
+description: Exploit detection plugin — detects item duplication, chunk bugs, and flags suspicious inventory activity
+authors: [edward-lcl]
+commands:
+  warden:
+    description: Warden admin commands
+    usage: /warden <status|reload|stats>
+    permission: warden.admin
+permissions:
+  warden.admin:
+    description: Access to Warden admin commands
+    default: op

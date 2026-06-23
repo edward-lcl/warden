@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group = 'io.github.edwardlcl'
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.7.0'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+processResources {
+    filesMatching('plugin.yml') {
+        expand(project: [version: project.version])
+    }
+}
+
+jar {
+    archiveFileName = 'warden-' + version + '.jar'
+}

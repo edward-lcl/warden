@@ -1,0 +1,18 @@
+# Warden Configuration
+detection:
+  tnt-dupe: true
+  carpet-dupe: true
+  inventory-clone: true
+
+thresholds:
+  max-items-gained-per-second: 64
+  alert-cooldown-seconds: 30
+
+logging:
+  log-to-file: true
+  log-file: plugins/Warden/warden.log
+  log-transactions: true
+
+alerts:
+  notify-ops: true
+  discord-webhook: ""  # optional Discord webhook for alerts
