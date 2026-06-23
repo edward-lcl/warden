@@ -1,30 +1,20 @@
-name: Issue Classifier
+name: Issue Triage
+
+# Lightweight triage only. Real classification is handled out-of-band by the
+# OCPlatform-native poller (automation/warden_issue_poller.py), which calls the
+# local model proxy and needs no API keys in GitHub secrets.
 
 on:
   issues:
     types: [opened]
 
 jobs:
-  classify:
+  triage:
     runs-on: ubuntu-latest
     permissions:
       issues: write
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: pip install anthropic
-
-      - name: Classify issue
+      - name: Label as needs-triage
+        run: gh issue edit ${{ github.event.issue.number }} --add-label "needs-triage" --repo ${{ github.repository }}
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
-        run: python .github/scripts/classify_issue.py
